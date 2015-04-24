@@ -29,6 +29,7 @@ import org.onepf.opfiab.model.event.SetupResponse;
 import org.onepf.opfiab.model.event.SetupStartedEvent;
 import org.onepf.opfiab.util.OPFIabUtils;
 import org.onepf.opfutils.OPFChecks;
+import org.onepf.opfutils.OPFLog;
 import org.onepf.opfutils.OPFPreferences;
 import org.onepf.opfutils.OPFUtils;
 
@@ -92,6 +93,8 @@ final class SetupManager {
 
     @NonNull
     private SetupResponse newResponse(@NonNull final SetupStartedEvent setupStartedEvent) {
+        OPFLog.logMethod(setupStartedEvent);
+
         final Configuration configuration = setupStartedEvent.getConfiguration();
         final Iterable<BillingProvider> providers = configuration.getProviders();
         final Iterable<BillingProvider> availableProviders = OPFIabUtils.getAvailable(providers);
@@ -103,6 +106,9 @@ final class SetupManager {
             final BillingProviderInfo info = BillingProviderInfo.fromJson(lastProvider);
             final BillingProvider provider;
             final SetupResponse setupResponse;
+
+            OPFLog.d("Previous provider: " + lastProvider);
+
             if (info != null
                     && (provider = OPFIabUtils.findWithInfo(availableProviders, info)) != null
                     && (setupResponse = withProvider(configuration, provider, false)) != null) {
@@ -111,6 +117,9 @@ final class SetupManager {
         }
 
         final String packageInstaller = OPFUtils.getPackageInstaller(context);
+
+        OPFLog.d("Package installer: " + packageInstaller);
+
         // If package installer is set, try it before anything else
         if (!TextUtils.isEmpty(packageInstaller)) {
             final BillingProvider installerProvider = OPFIabUtils
@@ -129,6 +138,7 @@ final class SetupManager {
             if (setupResponse != null) {
                 return setupResponse;
             }
+            OPFLog.d("Provider " + provider.getInfo().getName() + "does not satisfies current configuration");
         }
 
         return new SetupResponse(configuration, FAILED, null);

@@ -26,6 +26,7 @@ import org.onepf.opfiab.model.event.billing.ConsumeResponse;
 import org.onepf.opfiab.model.event.billing.InventoryResponse;
 import org.onepf.opfiab.model.event.billing.PurchaseResponse;
 import org.onepf.opfiab.model.event.billing.SkuDetailsResponse;
+import org.onepf.opfutils.OPFLog;
 
 /**
  * Stub implementation of {@link BillingListener} interface.
@@ -34,26 +35,42 @@ import org.onepf.opfiab.model.event.billing.SkuDetailsResponse;
 public class SimpleBillingListener implements BillingListener {
 
     @Override
-    public void onSetupStarted(@NonNull final SetupStartedEvent setupStartedEvent) { }
+    public void onSetupStarted(@NonNull final SetupStartedEvent setupStartedEvent) {
+        OPFLog.logMethod(setupStartedEvent);
+    }
 
     @Override
-    public void onSetupResponse(@NonNull final SetupResponse setupResponse) { }
+    public void onSetupResponse(@NonNull final SetupResponse setupResponse) {
+        OPFLog.logMethod(setupResponse);
+    }
 
     @Override
-    public void onRequest(@NonNull final BillingRequest billingRequest) { }
+    public void onRequest(@NonNull final BillingRequest billingRequest) {
+        OPFLog.logMethod(billingRequest);
+    }
 
     @Override
-    public void onResponse(@NonNull final BillingResponse billingResponse) { }
+    public void onResponse(@NonNull final BillingResponse billingResponse) {
+        OPFLog.logMethod(billingResponse);
+    }
 
     @Override
-    public void onConsume(@NonNull final ConsumeResponse consumeResponse) { }
+    public void onConsume(@NonNull final ConsumeResponse consumeResponse) {
+        OPFLog.logMethod(consumeResponse);
+    }
 
     @Override
-    public void onPurchase(@NonNull final PurchaseResponse purchaseResponse) { }
+    public void onPurchase(@NonNull final PurchaseResponse purchaseResponse) {
+        OPFLog.logMethod(purchaseResponse);
+    }
 
     @Override
-    public void onInventory(@NonNull final InventoryResponse inventoryResponse) { }
+    public void onInventory(@NonNull final InventoryResponse inventoryResponse) {
+        OPFLog.logMethod(inventoryResponse);
+    }
 
     @Override
-    public void onSkuDetails(@NonNull final SkuDetailsResponse skuDetailsResponse) { }
+    public void onSkuDetails(@NonNull final SkuDetailsResponse skuDetailsResponse) {
+        OPFLog.logMethod(skuDetailsResponse);
+    }
 }

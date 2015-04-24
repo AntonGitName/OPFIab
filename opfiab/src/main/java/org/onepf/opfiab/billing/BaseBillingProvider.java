@@ -223,6 +223,8 @@ public abstract class BaseBillingProvider<R extends SkuResolver, V extends Purch
      */
     protected void postSkuDetailsResponse(@NonNull final Status status,
                                           @Nullable final Collection<SkuDetails> skusDetails) {
+        OPFLog.logMethod(status, skusDetails);
+
         final SkuDetailsResponse response;
         if (skusDetails == null) {
             response = new SkuDetailsResponse(status, getInfo(), null);
@@ -250,6 +252,8 @@ public abstract class BaseBillingProvider<R extends SkuResolver, V extends Purch
     protected void postInventoryResponse(@NonNull final Status status,
                                          @Nullable final Iterable<Purchase> inventory,
                                          final boolean hasMore) {
+        OPFLog.logMethod(status, inventory, hasMore);
+
         final InventoryResponse response;
         if (inventory == null) {
             response = new InventoryResponse(status, getInfo(), null, hasMore);
@@ -277,6 +281,8 @@ public abstract class BaseBillingProvider<R extends SkuResolver, V extends Purch
      */
     protected void postPurchaseResponse(@NonNull final Status status,
                                         @Nullable final Purchase purchase) {
+        OPFLog.logMethod(status, purchase);
+
         final PurchaseResponse response;
         if (purchase == null) {
             response = new PurchaseResponse(status, getInfo(), null, null);
@@ -299,6 +305,8 @@ public abstract class BaseBillingProvider<R extends SkuResolver, V extends Purch
      */
     protected void postConsumeResponse(@NonNull final Status status,
                                        @NonNull final Purchase purchase) {
+        OPFLog.logMethod(status, purchase);
+
         final Purchase revertedPurchase = OPFIabUtils.revert(skuResolver, purchase);
         postResponse(new ConsumeResponse(status, getInfo(), revertedPurchase));
     }
